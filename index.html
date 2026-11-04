@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>章祉轩 · 个人简历 | MES 开发 · 数据库 · 硬件工程</title>
+<meta name="description" content="章祉轩，浙江万里学院电子信息工程 2027 届本科。宁波极望科技 MES 开发工程师（实习生），独立交付 6 个制造业 MES 项目、20+ 表单、60+ 接口，熟悉 SQL Server 存储过程与性能调优；同时具备 Altium Designer 多层板 Layout 与电子焊接返修能力。">
+<meta name="author" content="章祉轩">
+<meta property="og:type" content="website">
+<meta property="og:title" content="章祉轩 · 个人简历 | MES 开发 · 数据库 · 硬件工程">
+<meta property="og:description" content="6 个制造业 MES 项目独立交付 · 20+ 表单 · 60+ 接口 · SQL Server 存储过程与调优 · PCB 设计与硬件调试">
+<meta name="theme-color" content="#006ea6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23006ea6'/%3E%3Ctext x='16' y='22' font-family='Helvetica,Arial' font-size='17' font-weight='700' text-anchor='middle' fill='%23fff'%3EZ%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #eaeaef;
+    --surface: #f5f5f8;
+    --surface2: #e8e8ee;
+    --border: #d6d6de;
+    --cyan: #006ea6;
+    --blue: #2b55d4;
+    --purple: #5c3ac4;
+    --text: #4a4a58;
+    --text-dim: #7a7a8a;
+    --text-bright: #181820;
+    --nav-bg: rgba(255,255,255,0.75);
+    --grid-line: rgba(0,0,0,0.025);
+    --accent-soft: rgba(0,110,166,0.05);
+    --accent-border: rgba(0,110,166,0.35);
+    --mark: rgba(0,110,166,0.15);
+    --shadow-hover: 0 10px 28px rgba(0,0,0,0.10);
+  }
+
+  html[data-theme="dark"] {
+    --bg: #14141a;
+    --surface: #1b1b23;
+    --surface2: #24242e;
+    --border: #33333f;
+    --cyan: #56b6e6;
+    --blue: #8aa0f8;
+    --purple: #b092f6;
+    --text: #b6b6c4;
+    --text-dim: #8b8b9c;
+    --text-bright: #f4f4f8;
+    --nav-bg: rgba(20,20,26,0.78);
+    --grid-line: rgba(255,255,255,0.035);
+    --accent-soft: rgba(86,182,230,0.10);
+    --accent-border: rgba(86,182,230,0.45);
+    --mark: rgba(86,182,230,0.22);
+    --shadow-hover: 0 10px 28px rgba(0,0,0,0.55);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Inter", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: rgba(0, 110, 166, 0.16);
+  }
+
+  /* ---------- 背景装饰 ---------- */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 70%);
+  }
+
+  .bg-glow {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(180px);
+    opacity: 0.10;
+  }
+
+  .bg-glow--top {
+    top: -250px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cyan);
+  }
+
+  .bg-glow--bottom {
+    bottom: -250px;
+    right: -100px;
+    background: var(--purple);
+  }
+
+  /* ---------- 布局 ---------- */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+
+  /* ---------- 导航 ---------- */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 16px 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner {
+    position: relative;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: -0.3px;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--cyan);
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: var(--cyan);
+    transition: width 0.25s ease;
+  }
+
+  .nav-links a:hover::after,
+  .nav-links a.active::after {
+    width: 100%;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .theme-toggle {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text-bright);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--accent-border);
+    background: var(--surface2);
+    transform: translateY(-1px);
+  }
+
+  .nav-toggle {
+    display: none;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 16px;
+    height: 1.6px;
+    border-radius: 2px;
+    background: var(--text-bright);
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  .nav-toggle.open span:nth-child(1) {
+    transform: translateY(5.6px) rotate(45deg);
+  }
+
+  .nav-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.open span:nth-child(3) {
+    transform: translateY(-5.6px) rotate(-45deg);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 160px 0 72px;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    font-size: 13px;
+    color: var(--cyan);
+    background: var(--accent-soft);
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+  }
+
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--text-bright);
+    letter-spacing: -1.5px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--text-dim);
+    font-weight: 400;
+    margin-bottom: 22px;
+  }
+
+  .hero-tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero-tag {
+    padding: 6px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--text);
+    transition: all 0.25s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .hero-tag:hover {
+    border-color: var(--cyan);
+    background: var(--accent-soft);
+    color: var(--cyan);
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 30px auto 0;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px 14px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .hero-stat:hover {
+    border-color: var(--accent-border);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .hero-stat-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+
+  .hero-stat-num {
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    line-height: 1.45;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-stat-label {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    line-height: 1.65;
+    margin-top: 7px;
+  }
+
+  /* ---------- 通用 Section ---------- */
+  .section {
+    padding: 72px 0;
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--cyan);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: -0.6px;
+    margin-bottom: 40px;
+  }
+
+  /* ---------- 关于我 ---------- */
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+
+  .about-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .about-photo {
+    flex: 0 0 124px;
+    width: 124px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  }
+
+  .about-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.45s ease;
+  }
+
+  .about-photo:hover img {
+    transform: scale(1.06);
+  }
+
+  .about-grid {
+    flex: 1;
+    min-width: 0;
+    align-self: center;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .about-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .about-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .about-item-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  .about-item-value {
+    font-size: 15px;
+    color: var(--text-bright);
+    font-weight: 500;
+  }
+
+  .about-intro {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.9;
+  }
+
+  .about-intro strong {
+    color: var(--cyan);
+    font-weight: 600;
+  }
+
+  .course-wrap {
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  .course-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 6px;
+    transition: color 0.25s, border-color 0.25s;
+  }
+
+  .chip:hover {
+    color: var(--cyan);
+    border-color: rgba(0,110,166,0.35);
+  }
+
+  /* ---------- 经历卡片（实习 / 项目） ---------- */
+  .exp-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .exp-card + .exp-card {
+    margin-top: 20px;
+  }
+
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
+  }
+
+  .exp-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .exp-logo {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .exp-title {
+    flex: 1;
+    min-width: 170px;
+  }
+
+  .exp-title h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: -0.3px;
+    line-height: 1.4;
+  }
+
+  .exp-role {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--cyan);
+    margin-top: 2px;
+  }
+
+  .exp-date {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .exp-summary {
+    margin-top: 20px;
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+
+  .exp-summary strong {
+    color: var(--text-bright);
+    font-weight: 600;
+  }
+
+  .exp-list {
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .exp-list li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 14.5px;
+    line-height: 1.85;
+    color: var(--text);
+  }
+
+  .exp-list li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 11px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--cyan);
+    opacity: 0.55;
+  }
+
+  .exp-list strong {
+    color: var(--text-bright);
+    font-weight: 600;
+  }
+
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ---------- 求职意向 ---------- */
+  .intent-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intent-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
+  }
+
+  .intent-quote {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-bright);
+    line-height: 1.8;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .intent-quote mark {
+    background: linear-gradient(180deg, transparent 60%, var(--mark) 60%);
+    color: inherit;
+  }
+
+  .intent-detail {
+    font-size: 14.5px;
+    color: var(--text);
+    line-height: 1.9;
+    text-align: center;
+    max-width: 660px;
+    margin: 0 auto;
+  }
+
+  .intent-detail strong {
+    color: var(--cyan);
+    font-weight: 600;
+  }
+
+  .intent-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .intent-highlight {
+    text-align: center;
+    padding: 18px 12px;
+    background: var(--surface2);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .intent-highlight-num {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  .intent-highlight-label {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  /* ---------- 技能 ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+  }
+
+  .skill-card:hover {
+    border-color: var(--accent-border);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  .skill-card-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .skill-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .skill-card p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.75;
+  }
+
+  .skill-bar-wrap {
+    margin-top: 18px;
+  }
+
+  .skill-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  .skill-bar {
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--cyan), var(--blue));
+    transition: width 1.2s ease;
+  }
+
+  /* ---------- 联系方式 ---------- */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+    cursor: pointer;
+  }
+
+  .contact-card:hover {
+    border-color: var(--cyan);
+    background: var(--surface2);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  .contact-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .contact-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .contact-value {
+    font-size: 14px;
+    color: var(--text-bright);
+    font-weight: 500;
+  }
+
+  .contact-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .btn-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 28px;
+    border-radius: 10px;
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    box-shadow: 0 6px 18px rgba(43,85,212,0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+
+  .btn-pdf:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(43,85,212,0.34);
+    filter: brightness(1.06);
+  }
+
+  .btn-pdf:active {
+    transform: translateY(0);
+  }
+
+  .btn-pdf-icon {
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  /* ---------- 微信二维码 ---------- */
+  .qr-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .qr-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    display: inline-block;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .qr-img {
+    display: block;
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    text-align: center;
+    padding: 48px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  .footer-text {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  .footer-heart {
+    font-size: 15px;
+    color: var(--cyan);
+    font-weight: 600;
+  }
+
+  /* ---------- 渐显动画 ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- 悬停动效（放在 .reveal 之后，避免 transform 被覆盖） ---------- */
+  .skill-card:hover,
+  .exp-card:hover,
+  .contact-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .exp-card:hover {
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .contact-card:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* ---------- 暗色主题补充 ---------- */
+  html[data-theme="dark"] .about-card,
+  html[data-theme="dark"] .exp-card,
+  html[data-theme="dark"] .intent-card,
+  html[data-theme="dark"] .skill-card,
+  html[data-theme="dark"] .contact-card,
+  html[data-theme="dark"] .hero-stat {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  }
+
+  html[data-theme="dark"] .bg-glow {
+    opacity: 0.18;
+  }
+
+  /* 暗色基础阴影选择器优先级更高，需单独给悬停态补回 */
+  html[data-theme="dark"] .exp-card:hover,
+  html[data-theme="dark"] .contact-card:hover,
+  html[data-theme="dark"] .skill-card:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  html[data-theme="dark"] .qr-card {
+    background: #fff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 132px 0 56px;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      letter-spacing: -1px;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+    }
+
+    .hero-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .hero-stat {
+      padding: 15px 8px 13px;
+    }
+
+    .hero-stat-icon {
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+    .hero-stat-num {
+      font-size: 14px;
+    }
+
+    .about-grid,
+    .skills-grid,
+    .contact-grid,
+    .intent-highlights {
+      grid-template-columns: 1fr;
+    }
+
+    .about-top {
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .about-photo {
+      flex: 0 0 auto;
+      width: 118px;
+    }
+
+    .about-grid {
+      align-self: stretch;
+      flex: none;
+      width: 100%;
+    }
+
+    .section {
+      padding: 48px 0;
+    }
+
+    .about-card,
+    .exp-card,
+    .intent-card {
+      padding: 26px 22px;
+    }
+
+    .section-title {
+      font-size: 26px;
+      margin-bottom: 28px;
+    }
+
+    .intent-quote {
+      font-size: 17px;
+    }
+
+    .exp-date {
+      order: 3;
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      position: absolute;
+      top: calc(100% + 16px);
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      padding: 6px 24px 12px;
+      background: var(--surface);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.10);
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 11px 0;
+      font-size: 14.5px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links li:last-child a {
+      border-bottom: none;
+    }
+
+    .nav-links a::after {
+      display: none;
+    }
+  }
+</style>
+<script>
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  })();
+</script>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow--top"></div>
+<div class="bg-glow bg-glow--bottom"></div>
+
+<!-- 导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">ZX.Zhang</a>
+    <div class="nav-actions">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">关于我</a></li>
+        <li><a href="#experience">实习经历</a></li>
+        <li><a href="#projects">项目经历</a></li>
+        <li><a href="#skills">专业技能</a></li>
+        <li><a href="#intent">求职意向</a></li>
+        <li><a href="#contact">联系方式</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换为暗色主题" title="切换为暗色主题">&#127769;</button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="打开导航菜单" aria-controls="navLinks" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main class="container" id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">2027 届 &middot; 做过 6 个 MES 项目 &middot; 可尽快到岗</div>
+    <h1>你好，我是<br><span>章祉轩</span></h1>
+    <p class="hero-sub">浙江万里学院 &middot; 电子信息工程 &middot; 本科在读（2027 届）</p>
+
+    <div class="hero-tags">
+      <span class="hero-tag">MES 开发与实施</span>
+      <span class="hero-tag">SQL Server / 存储过程</span>
+      <span class="hero-tag">Python &middot; C &middot; Qt</span>
+      <span class="hero-tag">PCB 设计与 Layout</span>
+      <span class="hero-tag">电子焊接与返修</span>
+      <span class="hero-tag">AI 辅助开发</span>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-icon">&#128187;</div>
+        <div class="hero-stat-num">制造业系统交付</div>
+        <div class="hero-stat-label">Y9 / J9 低代码<br>表单报表 · 业务流</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-icon">&#128268;</div>
+        <div class="hero-stat-num">跨系统数据对接</div>
+        <div class="hero-stat-label">ERP / WMS / 设备采集<br>字段与编码核对</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-icon">&#129504;</div>
+        <div class="hero-stat-num">AI 提效实践</div>
+        <div class="hero-stat-label">源码差异比对 · 代码纠错<br>根因交叉验证</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-icon">&#9881;</div>
+        <div class="hero-stat-num">硬件电路设计</div>
+        <div class="hero-stat-label">Altium Designer<br>多层板 Layout</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于我 -->
+  <section class="section" id="about">
+    <div class="section-label">About</div>
+    <h2 class="section-title">关于我</h2>
+
+    <div class="about-card reveal">
+      <div class="about-top">
+        <div class="about-photo">
+          <img src="assets/photo.jpg" alt="章祉轩证件照" width="768" height="974">
+        </div>
+        <div class="about-grid">
+          <div class="about-item">
+            <div class="about-icon">&#127891;</div>
+            <div>
+              <div class="about-item-label">学校</div>
+              <div class="about-item-value">浙江万里学院</div>
+            </div>
+          </div>
+          <div class="about-item">
+            <div class="about-icon">&#128218;</div>
+            <div>
+              <div class="about-item-label">专业</div>
+              <div class="about-item-value">电子信息工程 &middot; 本科在读</div>
+            </div>
+          </div>
+          <div class="about-item">
+            <div class="about-icon">&#127939;</div>
+            <div>
+              <div class="about-item-label">年级</div>
+              <div class="about-item-value">2027 届（2023.09 入学）</div>
+            </div>
+          </div>
+          <div class="about-item">
+            <div class="about-icon">&#128205;</div>
+            <div>
+              <div class="about-item-label">所在地</div>
+              <div class="about-item-value">浙江万里学院钱湖校区</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-intro">
+        <p>
+          我是章祉轩，浙江万里学院电子信息工程专业，2027 年毕业。学校课程主要围绕信号与系统、数字信号处理、数据采集与传输展开，做过单片机和上位机开发；硬件方面学过模电、数电，能用 Altium Designer 独立画多层板，已通过<strong>英语四级</strong>。
+        </p>
+        <p style="margin-top:12px;">
+          2026 年 7 月到 9 月，我在<strong>宁波极望科技</strong>做开发实习生，独立负责华朔、美利信、添迪、伟源等 <strong>6 个制造业 MES 项目</strong>的交付：从需求梳理、表单和报表搭建，到接口联调、正式环境上线。三个月里做了 <strong>20 多张表单、60 多个接口</strong>，也处理掉 <strong>20 多个线上问题</strong>。
+        </p>
+        <p style="margin-top:12px;">
+          系统上线以后出问题，多数落在数据库上。这段时间我写了不少存储过程，处理过大表查询慢、并发死锁、唯一索引冲突，也查过因为漏了事务导致库存和台账对不上的情况。改之前我会先想清楚会牵动哪些业务，改完留下记录，后面出问题能顺着记录回退。硬件那边我也没丢：多层板 Layout、0402 和 QFP 的贴片、板子调试都能自己上手。做的是制造业的系统，知道现场是什么样子，改需求的时候心里会更有底。
+        </p>
+      </div>
+
+      <div class="course-wrap">
+        <div class="course-label">主修课程</div>
+        <div class="chip-row">
+          <span class="chip">信号与系统</span>
+          <span class="chip">数字信号处理</span>
+          <span class="chip">数据采集与传输</span>
+          <span class="chip">嵌入式系统设计</span>
+          <span class="chip">高性能单片机</span>
+          <span class="chip">传感器技术</span>
+          <span class="chip">上位机软件开发（C++）</span>
+          <span class="chip">Python / C 算法实现</span>
+          <span class="chip">PCB 设计</span>
+          <span class="chip">模拟电子技术</span>
+          <span class="chip">数字电子技术</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 实习经历 -->
+  <section class="section" id="experience">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">实习经历</h2>
+
+    <div class="exp-card reveal">
+      <div class="exp-head">
+        <div class="exp-logo">极望</div>
+        <div class="exp-title">
+          <h3>宁波极望科技有限公司</h3>
+          <div class="exp-role">开发工程师（实习生）</div>
+        </div>
+        <div class="exp-date">2026.07 – 2026.09</div>
+      </div>
+
+      <p class="exp-summary">
+        负责<strong>华朔、美利信、添迪、伟源</strong>等 6 家制造业客户的 MES 项目交付，基于 <strong>Y9/J9 低代码平台</strong>与 <strong>SQL Server</strong> 完成表单报表搭建、业务流与权限规则配置、多系统接口对接及上线后的缺陷处理。
+      </p>
+
+      <ul class="exp-list">
+        <li>
+          <strong>表单与报表开发：</strong>依据客户生产流程设计并交付单据、报表 20 余张，其中跨表统计类报表通过数据库视图与存储过程实现，避免应用层的重复计算。
+        </li>
+        <li>
+          <strong>业务流与权限配置：</strong>完成审批流转与多角色权限校验规则配置，并处理流程分支条件配置不当导致的单据流转中断问题。
+        </li>
+        <li>
+          <strong>系统接口联调：</strong>完成 ERP、WMS、设备采集等系统的接口对接，累计交付 60 余个接口，重点核对字段口径与编码规则的一致性，保证跨系统数据传输准确。
+        </li>
+        <li>
+          <strong>疑难缺陷攻关：</strong>处理上线后线上问题 20 余项，其中账实不符类问题多源于事务边界缺失、并发重复写入或唯一索引缺失，通过比对库存流水与台账定位至具体单据，并完成重复单据合并与历史流水补录。
+        </li>
+        <li>
+          <strong>变更管理：</strong>修改既有代码前评估影响范围，优先保持原有业务逻辑不变；变更过程保留记录，具备回退能力。多项目并行期间同步跟进 3 家客户，需求与前端、实施直接对齐。
+        </li>
+        <li>
+          <strong>排查效率：</strong>针对复杂缺陷借助 AI 完成版本间源码差异比对，缩短问题定位周期。
+        </li>
+      </ul>
+
+      <div class="exp-tags">
+        <span class="chip">Y9 / J9 低代码平台</span>
+        <span class="chip">SQL Server</span>
+        <span class="chip">存储过程</span>
+        <span class="chip">业务流设计</span>
+        <span class="chip">权限校验</span>
+        <span class="chip">接口联调</span>
+        <span class="chip">执行计划与索引优化</span>
+        <span class="chip">并发死锁排查</span>
+        <span class="chip">数据一致性治理</span>
+        <span class="chip">AI 辅助根因分析</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 项目经历 -->
+  <section class="section" id="projects">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title">项目经历</h2>
+
+    <div class="exp-card reveal">
+      <div class="exp-head">
+        <div class="exp-logo">51</div>
+        <div class="exp-title">
+          <h3>基于 89C51 的智能酒精检测系统</h3>
+          <div class="exp-role">硬件设计 &middot; 嵌入式开发（个人项目）</div>
+        </div>
+        <div class="exp-date">课程设计</div>
+      </div>
+
+      <p class="exp-summary">
+        以 MQ-3 气敏传感器采集酒精浓度，输出信号经 ADC0832 完成模数转换后交由 AT89C51 处理，LCD1602 实时显示浓度值，超过设定阈值时通过蜂鸣器与 LED 实现声光报警。
+      </p>
+
+      <ul class="exp-list">
+        <li>
+          <strong>信号采集：</strong>采用 MQ-3 气敏传感器与 ADC0832 模数转换芯片构建采集电路，完成模拟量到数字量的转换。
+        </li>
+        <li>
+          <strong>数据处理与显示：</strong>在 AT89C51 上实现采样、阈值判断与逻辑控制，驱动 LCD1602 实时显示当前浓度。
+        </li>
+        <li>
+          <strong>报警输出：</strong>设计三极管驱动的蜂鸣器与 LED 声光报警电路，浓度超标时即时预警。
+        </li>
+        <li>
+          <strong>个人职责：</strong>独立完成原理图设计、PCB 绘制、焊接调试与程序编写。
+        </li>
+      </ul>
+
+      <div class="exp-tags">
+        <span class="chip">MQ-3 气敏传感器</span>
+        <span class="chip">ADC0832</span>
+        <span class="chip">AT89C51</span>
+        <span class="chip">LCD1602</span>
+        <span class="chip">声光报警电路</span>
+        <span class="chip">Keil uVision5</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 专业技能 -->
+  <section class="section" id="skills">
+    <div class="section-label">Skills</div>
+    <h2 class="section-title">专业技能</h2>
+
+    <div class="skills-grid">
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">&#128295;</div>
+        <h3>MES 开发与实施</h3>
+        <p>在 Y9/J9 低代码平台上做表单、报表、业务流和权限配置，也做跨系统接口对接。6 个客户项目从需求到上线都是自己跟下来的。</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Y9 / J9 低代码平台</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-wrap" style="margin-top:10px;">
+          <div class="skill-bar-label"><span>表单与报表体系</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-wrap" style="margin-top:10px;">
+          <div class="skill-bar-label"><span>业务流与权限校验</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">&#128451;</div>
+        <h3>数据库（SQL Server）</h3>
+        <p>平时写存储过程和多表关联查询，遇到慢查询会看执行计划、调索引。查过并发死锁、唯一索引冲突，以及事务没包住导致的数据不一致。</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>SQL Server</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-wrap" style="margin-top:10px;">
+          <div class="skill-bar-label"><span>存储过程与复杂查询</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-wrap" style="margin-top:10px;">
+          <div class="skill-bar-label"><span>性能调优与问题排查</span><span>良好</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">&#128187;</div>
+        <h3>编程语言与工具</h3>
+        <p>C 和 Python 都能用来写东西，上位机界面用 Qt，单片机程序用 Keil uVision5，读别人的代码、查自己的报错都还算顺手。</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Python</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-wrap" style="margin-top:10px;">
+          <div class="skill-bar-label"><span>C 语言</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div>
+        </div>
+        <div class="skill-bar-wrap" style="margin-top:10px;">
+          <div class="skill-bar-label"><span>Qt / C++ 上位机</span><span>良好</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">&#9881;</div>
+        <h3>PCB 设计与 Layout</h3>
+        <p>用 Altium Designer 建原理图库和封装库，画过多层板 Layout，从选型到出板能自己走一遍；模电、数电的课程基础比较扎实。</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Altium Designer</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-wrap" style="margin-top:10px;">
+          <div class="skill-bar-label"><span>电路原理图设计</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">&#129520;</div>
+        <h3>电子焊接与返修</h3>
+        <p>0402/0603 贴片和 SOP/QFP 芯片都能手工焊，PCB 的后期加工、组装、调试也做过，板子出了问题能自己查。</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>手工焊接（0402/0603）</span><span>精通</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-bar-wrap" style="margin-top:10px;">
+          <div class="skill-bar-label"><span>硬件故障排查与返修</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-wrap" style="margin-top:10px;">
+          <div class="skill-bar-label"><span>PCB 组装与调试</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:78%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">&#129504;</div>
+        <h3>AI 工具应用</h3>
+        <p>写代码时用 Claude 帮忙纠语法、加注释；项目上主要用它比对两个版本的源码差异，比自己一行行看快。</p>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>AI 辅助开发与纠错</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-wrap" style="margin-top:10px;">
+          <div class="skill-bar-label"><span>源码差异比对 / 根因验证</span><span>熟练</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 求职意向 -->
+  <section class="section" id="intent">
+    <div class="section-label">Job Intention</div>
+    <h2 class="section-title">求职意向</h2>
+
+    <div class="intent-card reveal">
+      <p class="intent-quote">
+        &#8220;<mark>希望能给一个机会</mark>，让我用最踏实的态度，<br>从最基础的事情做起，<mark>一步步成长为团队中值得信赖的一员</mark>。&#8221;
+      </p>
+      <div class="intent-detail">
+        <p>
+          我工作经验还浅，和做了几年的工程师没法比。但我有个不太一样的地方：<strong>硬件和软件两头都自己上手做过</strong>，一个系统从板子到数据库是怎么串起来的，我心里大致有数。
+        </p>
+        <p style="margin-top:12px;">
+          2026 年 7 月到 9 月，我在宁波极望科技做 MES 开发实习。三个月里独立跟完 6 个项目，做了 20 多张表单、60 多个接口，处理了 20 多个线上问题。
+        </p>
+        <p style="margin-top:12px;">
+          我有的还是那股干劲和行动力——不怕从底层小事做起，不怕加班赶项目进度，不怕面对陌生的技术盲区。<strong>整理 BOM、核对原理图、焊样板</strong>这类活我愿意干；<strong>脏数据、老代码、没人愿意碰的报错日志</strong>，我也接得住。做得不够好的地方，我会用课余时间补上来。我相信<strong>踏实肯干的人，总能被看见</strong>。
+        </p>
+        <p style="margin-top:12px;">
+          我渴望加入一个有技术氛围的团队，能跟在经验丰富的前辈身边，把事情一件一件做扎实。如果您愿意给我一次面试的机会，我会用行动证明您的眼光没有错。<strong>感谢您花时间看到这里。</strong>
+        </p>
+      </div>
+
+      <div class="intent-highlights">
+        <div class="intent-highlight">
+          <div class="intent-highlight-num">&#128640;</div>
+          <div class="intent-highlight-label">6 个项目独立交付</div>
+        </div>
+        <div class="intent-highlight">
+          <div class="intent-highlight-num">&#129513;</div>
+          <div class="intent-highlight-label">软件 + 硬件复合背景</div>
+        </div>
+        <div class="intent-highlight">
+          <div class="intent-highlight-num">&#128197;</div>
+          <div class="intent-highlight-label">可尽快到岗 · 全职</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section class="section" id="contact">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">联系方式</h2>
+
+    <div class="contact-grid">
+      <a href="tel:19519619582" class="contact-card reveal">
+        <div class="contact-icon">&#128222;</div>
+        <div class="contact-label">手机</div>
+        <div class="contact-value">195 1961 9582</div>
+      </a>
+      <a href="mailto:2179431553@qq.com" class="contact-card reveal">
+        <div class="contact-icon">&#9993;</div>
+        <div class="contact-label">邮箱</div>
+        <div class="contact-value">2179431553@qq.com</div>
+      </a>
+      <div class="contact-card reveal">
+        <div class="contact-icon">&#127968;</div>
+        <div class="contact-label">地址</div>
+        <div class="contact-value">浙江万里学院钱湖校区</div>
+      </div>
+    </div>
+
+    <div class="contact-actions">
+      <a class="btn-pdf" href="assets/resume.pdf" target="_blank" rel="noopener">
+        <span class="btn-pdf-icon">&#11015;</span>
+        <span>下载 PDF 简历</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 微信二维码 -->
+  <section class="section" id="wechat">
+    <div class="section-label">WeChat</div>
+    <h2 class="section-title">微信联系</h2>
+
+    <div class="qr-wrap reveal">
+      <div class="qr-card">
+        <img class="qr-img" src="assets/wechat-qr.jpg" alt="章祉轩的微信好友二维码" loading="lazy" width="768" height="978">
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="footer-text">&copy; 2026 章祉轩 &middot; 浙江万里学院 电子信息工程</p>
+    <p class="footer-heart">感谢您花时间了解我，期待与您的交流 &#9997;</p>
+  </footer>
+
+</main>
+
+<script src="script.js" defer></script>
+
+</body>
+</html>
